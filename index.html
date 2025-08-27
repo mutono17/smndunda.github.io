@@ -7,3 +7,602 @@
 </body>
 
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharona - Student Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.8;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+
+        .section {
+            display: none;
+            padding: 2rem 0;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin-bottom: 2rem;
+            border-radius: 10px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: opacity 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Resume Section */
+        .resume-section {
+            margin: 2rem 0;
+        }
+
+        .resume-section h3 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .experience-item {
+            background: white;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .experience-item h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-item .date {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Blog Section */
+        .blog-post {
+            background: white;
+            padding: 2rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .blog-post h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Form */
+        .form-group {
+            margin: 1rem 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background: #667eea;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Skills bars */
+        .skill-bar {
+            margin: 1rem 0;
+        }
+
+        .skill-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-progress {
+            background: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Sharona</div>
+            <ul class="nav-menu">
+                <li><a onclick="showSection('portfolio')">Portfolio</a></li>
+                <li><a onclick="showSection('academic')">Academic</a></li>
+                <li><a onclick="showSection('resume')">Resume</a></li>
+                <li><a onclick="showSection('blog')">Blog</a></li>
+                <li><a onclick="showSection('contact')">Contact</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="section active">
+            <div class="hero">
+                <h1>Sharona</h1>
+                <p>Passionate about solving problems in Finance and Tech</p>
+            </div>
+
+            <h2>My Portfolio</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>E-Commerce Website</h3>
+                    <p>Full-stack web application built with React and Node.js. Features user authentication, payment processing, and inventory management.</p>
+                    <a href="#" class="btn">View Project</a>
+                </div>
+                <div class="card">
+                    <h3>Mobile Task Manager</h3>
+                    <p>Cross-platform mobile app developed with React Native. Includes offline sync, push notifications, and team collaboration features.</p>
+                    <a href="#" class="btn">View Project</a>
+                </div>
+                <div class="card">
+                    <h3>Data Visualization Dashboard</h3>
+                    <p>Interactive dashboard using D3.js and Python Flask. Processes and visualizes large datasets with real-time updates.</p>
+                    <a href="#" class="btn">View Project</a>
+                </div>
+                <div class="card">
+                    <h3>Machine Learning Classifier</h3>
+                    <p>Image classification model using TensorFlow and Python. Achieved 94% accuracy on test dataset through advanced preprocessing.</p>
+                    <a href="#" class="btn">View Project</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Academic Section -->
+        <section id="academic" class="section">
+            <h2>Academic Projects</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Senior Capstone: Smart Campus System</h3>
+                    <p>Leading a team of 5 students to develop an IoT-based smart campus management system. The project integrates sensors, mobile apps, and cloud computing to optimize energy usage and improve campus safety.</p>
+                    <p><strong>Technologies:</strong> Python, AWS IoT, React Native, PostgreSQL</p>
+                    <p><strong>Expected Completion:</strong> May 2024</p>
+                </div>
+                <div class="card">
+                    <h3>Database Systems: University Management System</h3>
+                    <p>Designed and implemented a comprehensive database system for university operations including student enrollment, course management, and grade tracking.</p>
+                    <p><strong>Technologies:</strong> MySQL, PHP, HTML/CSS</p>
+                    <p><strong>Grade:</strong> A+</p>
+                </div>
+                <div class="card">
+                    <h3>Algorithms Research: Graph Optimization</h3>
+                    <p>Independent research project on improving shortest path algorithms for large-scale networks. Presented findings at the university's annual research symposium.</p>
+                    <p><strong>Technologies:</strong> C++, Python, NetworkX</p>
+                    <p><strong>Published:</strong> Undergraduate Research Journal</p>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h3>Education</h3>
+                <div class="experience-item">
+                    <h4>Bachelor of Science in Computer Science</h4>
+                    <div class="date">2021 - 2025 (Expected)</div>
+                    <p>University of Technology | GPA: 3.8/4.0</p>
+                    <p><strong>Relevant Coursework:</strong> Data Structures, Algorithms, Database Systems, Software Engineering, Machine Learning, Web Development, Mobile Application Development</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resume Section -->
+        <section id="resume" class="section">
+            <h2>Resume</h2>
+            
+            <div class="resume-section">
+                <h3>Professional Experience</h3>
+                <div class="experience-item">
+                    <h4>Software Development Intern</h4>
+                    <div class="date">June 2023 - August 2023</div>
+                    <p><strong>TechCorp Solutions</strong></p>
+                    <p>• Developed and maintained web applications using React.js and Python Flask</p>
+                    <p>• Collaborated with senior developers on code reviews and best practices</p>
+                    <p>• Implemented automated testing procedures, reducing bugs by 30%</p>
+                </div>
+                
+                <div class="experience-item">
+                    <h4>Teaching Assistant - Introduction to Programming</h4>
+                    <div class="date">September 2022 - May 2023</div>
+                    <p><strong>University of Technology</strong></p>
+                    <p>• Assisted 150+ students with Python programming concepts and assignments</p>
+                    <p>• Conducted weekly lab sessions and office hours</p>
+                    <p>• Graded assignments and provided constructive feedback</p>
+                </div>
+
+                <div class="experience-item">
+                    <h4>Freelance Web Developer</h4>
+                    <div class="date">January 2022 - Present</div>
+                    <p><strong>Self-Employed</strong></p>
+                    <p>• Built responsive websites for local businesses and non-profit organizations</p>
+                    <p>• Managed client relationships and project timelines</p>
+                    <p>• Increased client web traffic by average of 40% through SEO optimization</p>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h3>Technical Skills</h3>
+                <div class="skill-bar">
+                    <div class="skill-name">JavaScript/TypeScript</div>
+                    <div class="skill-progress">
+                        <div class="skill-fill" style="width: 90%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-name">Python</div>
+                    <div class="skill-progress">
+                        <div class="skill-fill" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-name">React/Node.js</div>
+                    <div class="skill-progress">
+                        <div class="skill-fill" style="width: 80%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-name">SQL/Database Design</div>
+                    <div class="skill-progress">
+                        <div class="skill-fill" style="width: 75%"></div>
+                    </div>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-name">Machine Learning</div>
+                    <div class="skill-progress">
+                        <div class="skill-fill" style="width: 70%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h3>Certifications & Awards</h3>
+                <div class="experience-item">
+                    <h4>AWS Certified Cloud Practitioner</h4>
+                    <div class="date">March 2023</div>
+                    <p>Amazon Web Services certification demonstrating cloud computing knowledge</p>
+                </div>
+                <div class="experience-item">
+                    <h4>Dean's List</h4>
+                    <div class="date">Fall 2022, Spring 2023</div>
+                    <p>Recognition for academic excellence (GPA > 3.5)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section id="blog" class="section">
+            <h2>Blog</h2>
+            
+            <div class="blog-post">
+                <h3>The Future of Web Development: Trends to Watch in 2024</h3>
+                <div class="blog-date">March 15, 2024</div>
+                <p>As we move further into 2024, the web development landscape continues to evolve at a rapid pace. From the rise of AI-powered development tools to the growing importance of web performance, here are the key trends every developer should be watching...</p>
+                <a href="#" class="btn">Read More</a>
+            </div>
+
+            <div class="blog-post">
+                <h3>My Experience as a Software Development Intern</h3>
+                <div class="blog-date">February 28, 2024</div>
+                <p>Last summer, I had the incredible opportunity to intern at TechCorp Solutions as a software development intern. In this post, I'll share my experiences, the challenges I faced, and the valuable lessons I learned during my 10-week internship...</p>
+                <a href="#" class="btn">Read More</a>
+            </div>
+
+            <div class="blog-post">
+                <h3>Building My First Machine Learning Model: A Student's Journey</h3>
+                <div class="blog-date">February 10, 2024</div>
+                <p>Machine learning has always fascinated me, but getting started seemed overwhelming. In this post, I'll walk you through my journey of building my first ML model, from data collection to deployment, and share the resources that helped me along the way...</p>
+                <a href="#" class="btn">Read More</a>
+            </div>
+
+            <div class="blog-post">
+                <h3>Tips for Computer Science Students: Making the Most of Your University Years</h3>
+                <div class="blog-date">January 25, 2024</div>
+                <p>As I approach my final year of computer science studies, I've learned valuable lessons about making the most of the university experience. Here are my top tips for fellow CS students on building skills, networking, and preparing for your career...</p>
+                <a href="#" class="btn">Read More</a>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <h2>Get In Touch</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Contact Information</h3>
+                    <p><strong>Email:</strong> sharona@email.com</p>
+                    <p><strong>Phone:</strong> (555) 123-4567</p>
+                    <p><strong>Location:</strong> San Francisco, CA</p>
+                    <p><strong>LinkedIn:</strong> linkedin.com/in/sharona</p>
+                    <p><strong>GitHub:</strong> github.com/sharona</p>
+                </div>
+                <div class="card">
+                    <h3>Send Me a Message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function showSection(sectionName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            const targetSection = document.getElementById(sectionName);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Close mobile menu if open
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.remove('active');
+        }
+
+        function toggleMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Handle form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! I\'ll get back to you soon.');
+            this.reset();
+        });
+
+        // Animate skill bars when resume section is shown
+        document.addEventListener('click', function(e) {
+            if (e.target.onclick && e.target.onclick.toString().includes('resume')) {
+                setTimeout(() => {
+                    const skillFills = document.querySelectorAll('.skill-fill');
+                    skillFills.forEach(fill => {
+                        const width = fill.style.width;
+                        fill.style.width = '0%';
+                        setTimeout(() => {
+                            fill.style.width = width;
+                        }, 100);
+                    });
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>
